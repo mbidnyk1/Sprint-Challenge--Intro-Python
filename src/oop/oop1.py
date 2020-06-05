@@ -36,5 +36,5 @@ class FlightVehicle(Vehicle): #base class for Airplane and Starship
 class Airplane(FlightVehicle):
     pass
 
-class Starship(FlightVehicle): #base class
+class Starship(FlightVehicle): 
     pass
