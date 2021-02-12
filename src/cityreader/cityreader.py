@@ -1,7 +1,14 @@
+import csv
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
 
-
+class City:
+  def __init__(self,name,lat,lon):
+    self.name = name
+    self.lat = lat
+    self.lon = lon
+  def __str__(self):
+    return f'City("{self.name}", {self.lat},{self.lon}),'
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
 #
@@ -20,6 +27,11 @@ def cityreader(cities=[]):
   # TODO Implement the functionality to read from the 'cities.csv' file
   # For each city record, create a new City instance and add it to the 
   # `cities` list
+  with open('/home/mikeb/Documents/Lambda/cs/Sprint-Challenge--Intro-Python/src/cityreader/cities.csv', 'rt') as f:
+    data = csv.reader(f)
+    next(data, None)
+    for row in data:
+      cities.append(City(str(row[0]),float(row[3]),float(row[4])))  
     
     return cities
 
@@ -59,13 +71,41 @@ for c in cities:
 # Salt Lake City: (40.7774,-111.9301)
 
 # TODO Get latitude and longitude values from the user
+lat1,lon1= input('Enter lat1,lon1: \n').split(',')
+lat2,lon2 = input('Enter lat2,lon2: \n').split(',')
 
+lat1 = float(lat1)
+lon1 = float(lon1)
+lat2 = float(lat2)
+lon2 = float(lon2)
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
+  print(lat1)
+  print(lon1)
+  print(lat2)
+  print(lon2)
+  print(cities[9].lat)
+  print(cities[9].lon)
+  if lat1 > lat2:
+    tmp = lat1
+    lat1 = lat2
+    lat2 =tmp
+  if lon1 > lon2:
+    tmp = lon1
+    lon1 = lon2
+    lon2 = tmp
+    
+  within = [city for city in cities if lat1 <= city.lat <= lat2 and lon1 <= city.lon <= lon2]
+  
   # within will hold the cities that fall within the specified region
-  within = []
 
   # TODO Ensure that the lat and lon valuse are all floats
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
 
   return within
+cities_within = cityreader_stretch(lat1, lon1, lat2, lon2, cities)
+for c in cities_within:
+    print(c)
+# 45,-100
+# 32,-120
+
